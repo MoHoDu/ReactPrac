@@ -1,0 +1,26 @@
+body {
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  height: 50vw;
+  min-width: 420px;
+  min-height: 420px;
+}
+
+@media screen and (max-height: 50vw) {
+  #root {
+    width: 50vh;
+    height: 50vh;
+  }
+}

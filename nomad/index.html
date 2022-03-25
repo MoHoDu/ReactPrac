@@ -2,6 +2,8 @@
 <head>
     <title>Document</title>
 </head>
+<link rel="stylesheet" href="./styleSheet/main.css">
+<link rel="stylesheet" href="./styleSheet/app.css">
 <body>
     <div id="root"></div>
 </body>
@@ -12,7 +14,25 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     const root = document.getElementById("root");
-    function App() {
+    
+    function AtoB(props) {
+        const _index = props.index;
+        
+        const valuesList = [
+            {
+                littleName : "minutes",
+                largeName : "hours",
+                differenceValue : 60,
+                decimal : 0
+            },
+            {
+                littleName : "km",
+                largeName : "miles",
+                differenceValue : 1.60934,
+                decimal : 2
+            },
+        ];
+
         const [amount, setAmount] = React.useState(0);
         const [inverted, setInverted] = React.useState(false);
         const onChange = (event) => {
@@ -24,32 +44,61 @@
             setInverted(current => !current);
         }
         return ( 
-            <div>
-                <div>
-                    <h1>Super Converter</h1>
-                    <label htmlFor="minutes">Minutes</label>
-                    <input 
-                        value={inverted ? amount * 60 : amount} 
-                        id="minutes" 
-                        placeholder="Minutes" 
-                        type="number" 
-                        onChange={onChange}
-                        disabled={inverted}
-                    />
+            <div className="converter">
+                <div className="inputs">
+                    <div className="input">
+                        <label htmlFor="little">{valuesList[_index].littleName}</label>
+                        <input 
+                            value={inverted ? (amount * valuesList[_index].differenceValue).toFixed(valuesList[_index].decimal) 
+                                : amount} 
+                            id="little" 
+                            placeholder={"00" + valuesList[_index].littleName} 
+                            type="number" 
+                            onChange={onChange}
+                            disabled={inverted}
+                        />
+                    </div>
+                    <div className="finger">
+                        <span>{inverted ? "👈" : "👉"}</span>
+                    </div>
+                    <div className="input">
+                        <label htmlFor="large">{valuesList[_index].largeName}</label>
+                        <input 
+                            value={inverted ? amount 
+                                : _index === 0 ? Math.floor(amount / valuesList[_index].differenceValue) 
+                                : (amount / valuesList[_index].differenceValue).toFixed(valuesList[_index].decimal)}
+                            id="large" 
+                            placeholder={"00" + valuesList[_index].largeName} 
+                            type="number" 
+                            onChange={onChange}
+                            disabled={!inverted}
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="hours">Hours</label>
-                    <input 
-                        value={inverted ? amount : Math.round(amount / 60)}
-                        id="hours" 
-                        placeholder="Hours"  
-                        type="number" 
-                        onChange={onChange}
-                        disabled={!inverted}
-                    />
+                <div className="buttons">
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
                 </div>
-                <button onClick={reset}>Reset</button>
-                <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+            </div>
+        );
+    }
+    function App() {
+        const [index, setIndex] = React.useState("xx");
+        const onSelect = (event) => {
+            setIndex(event.target.value);
+        };
+        return ( 
+            <div className="app">
+                <h1>Super Converter</h1>
+                <select value={index} onChange={onSelect}>
+                    <option value="xx">Select your units</option>
+                    <option value="0">Minutes & Hours</option>
+                    <option value="1">Km & Miles</option>
+                </select>
+                <hr />
+                {index === "xx" ? <p>"Please select your units"</p> : null}
+                {index === "0" ? <AtoB index={Number(index)} /> : null}
+                {index === "1" ? <AtoB index={Number(index)} /> : null}
             </div>
         );
     }
