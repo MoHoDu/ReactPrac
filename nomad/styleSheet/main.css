@@ -16,6 +16,8 @@ body {
   height: 50vw;
   min-width: 420px;
   min-height: 420px;
+  max-width: 550px;
+  max-height: 550px;
 }
 
 @media screen and (max-height: 50vw) {
