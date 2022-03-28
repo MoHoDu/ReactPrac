@@ -1,0 +1,33 @@
+.header {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid red;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 60%;
+  height: 40px;
+}
+
+.searchBar {
+  flex-grow: 8;
+  margin-right: 5px;
+  height: 30px;
+}
+
+.submitBtn {
+  flex-grow: 2;
+  height: 30px;
+}
