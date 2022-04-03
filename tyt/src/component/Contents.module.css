@@ -1,0 +1,83 @@
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.box {
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow-y: scroll;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 60px;
+  padding: 25px 5px 0 5px;
+  box-sizing: border-box;
+}
+
+.platform {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--wtColor);
+}
+
+.platTitle {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: var(--wtColor);
+}
+
+.contentBox {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.content {
+  display: inline-block;
+  position: relative;
+  flex: none;
+  width: 180px;
+  height: 130px;
+  background-color: var(--bkColorL);
+  margin: 10px 5px 10px 5px;
+  border-radius: 5px;
+  border: 2px solid var(--wtColor);
+  box-sizing: border-box;
+  color: var(--wtColor);
+}
+
+.cntTeam {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  text-align: center;
+  width: 80px;
+  color: var(--ltColor);
+  font-size: 17px;
+  font-weight: bold;
+  padding: 3px 5px 2px 5px;
+  margin-top: 0;
+  border-radius: 5px 0 5px 0;
+  background-color: var(--bkColor);
+  border-top: 2px solid var(--wtColor);
+  border-left: 2px solid var(--wtColor);
+  box-sizing: border-box;
+}
+
+.cntTitle {
+  position: absolute;
+  bottom: 0;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 0 5px 0 0;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}

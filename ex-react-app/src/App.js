@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// browserRouter : 주소/movie
-// hashRouter : 주소/#/movie
 import styles from "./App.module.css";
 import { useState, useEffect } from "react";
 import Movie from "./components/Movie";
@@ -11,7 +9,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/movie">
+        <Route path="/movie/:id">
+          {/* :id -> /id값으로 전달 */}
           <Detail />
         </Route>
         <Route path="/">

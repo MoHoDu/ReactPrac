@@ -1,0 +1,13 @@
+:root {
+  --bkColor: #062c30;
+  --bkColorL: #05595b;
+  --ltColor: #e2d784;
+  --wtColor: #f5f5f5;
+}
+
+.box {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bkColor);
+  box-sizing: border-box;
+}

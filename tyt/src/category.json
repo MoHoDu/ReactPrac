@@ -1,0 +1,31 @@
+{
+  "genre": [
+    "감동",
+    "전쟁",
+    "스릴러",
+    "애니메이션",
+    "가족",
+    "힐링",
+    "법정",
+    "SF",
+    "판타지",
+    "역사",
+    "다큐멘터리"
+  ],
+  "members": ["한PD", "동PD", "M형"],
+  "platforms": ["YouTube", "Podcast", "Hereum"],
+  "team": [
+    {
+      "name": "team01",
+      "Team_members": ["한PD", "동PD"]
+    },
+    {
+      "name": "team02",
+      "Team_members": ["한PD", "M형"]
+    },
+    {
+      "name": "team03",
+      "Team_members": ["M형", "동PD"]
+    }
+  ]
+}
