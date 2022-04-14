@@ -1,9 +1,9 @@
 .box {
-  width: 30px;
+  /* width: 30px; */
   height: 30px;
   position: absolute;
-  top: 11px;
-  left: 40px;
+  top: 74px;
+  right: 10px;
   display: flex;
   justify-items: center;
   /* background-color: rgba(6, 44, 48, 0.8); */
@@ -15,6 +15,27 @@ select {
   margin: 5px 0 0 5px;
   border: 1px solid var(--wtColor);
   border-radius: 2px;
-  background-color: inherit;
+  background-color: var(--bkColor);
   color: var(--wtColor);
+  opacity: 0.85;
+}
+
+select:focus::selection {
+  background-color: var(--bkColorL);
+}
+
+.clearBtn {
+  position: relative;
+  width: fit-content;
+  padding-left: 15px;
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-right: 5px;
+  height: 25px;
+}
+
+.clearBtn .xBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

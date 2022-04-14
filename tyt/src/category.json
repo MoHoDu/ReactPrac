@@ -1,4 +1,18 @@
 {
+  "login": [
+    {
+      "admin": false,
+      "name": "모호성",
+      "id": "ahghtjd7",
+      "ps": "mmm"
+    },
+    {
+      "admin": true,
+      "name": "admin",
+      "id": "ahghtjd",
+      "ps": "mmm"
+    }
+  ],
   "genre": [
     "감동",
     "전쟁",

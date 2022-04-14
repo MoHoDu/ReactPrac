@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import styles from "./Search.module.css";
 import image from "./images/face.png";
 
 function Search(props) {
   let history = useHistory();
+  let num = 0;
   let i = 0;
   const [search, setSearch] = useState("");
   const contents = props.contents;
@@ -13,11 +14,19 @@ function Search(props) {
   };
   const onSubmit = (event) => {
     event.preventDefault();
+    props.setSrch(search);
     history.push({
-      pathname: "/",
-      state: { searchV: search },
+      pathname: `/result/${search}`,
     });
   };
+  const onClick = (event) => {
+    event.preventDefault();
+    props.setSrch("");
+    history.push({
+      pathname: "/",
+    });
+  };
+
   return (
     <div className={styles.box}>
       <form id="frm" onSubmit={onSubmit} method="post">
@@ -36,6 +45,10 @@ function Search(props) {
         <div className={styles.innerBox}>
           {contents.map((content, index) => {
             if (i > 5 || search === "") {
+              num += 1;
+              if (search !== "" && index === contents.length - 1) {
+                return <p key={index}>외 {num}개</p>;
+              }
               return null;
             } else if (content.title.includes(search)) {
               i += 1;
@@ -48,6 +61,7 @@ function Search(props) {
           })}
         </div>
       </div>
+      <button className={styles.xBtn} onClick={onClick}></button>
       <img className={styles.face} src={image} />
     </div>
   );

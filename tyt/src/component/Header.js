@@ -6,10 +6,13 @@ function Header() {
     <>
       <div className={styles.box}>
         <ion-icon className={styles.sideMenu} name="menu-outline"></ion-icon>
-        <span className={styles.logo}>tyt</span>
+        <Link className={styles.menu} to="/menu"></Link>
+        <Link className={styles.logo} to="/who">
+          tyt
+        </Link>
+        <Link className={styles.search} to="/search"></Link>
         <ion-icon name="search-outline"></ion-icon>
       </div>
-      <Link className={styles.search} to="/search"></Link>
     </>
   );
 }
