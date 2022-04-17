@@ -3,7 +3,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 
-function Category({ srch, setSrch, idxCtg, setIdxCtg }) {
+function Category({ srch, setSrch, idxCtg, setIdxCtg, category }) {
   let history = useHistory();
   const onSelect = (event) => {
     setIdxCtg(event.target.value);
@@ -25,9 +25,13 @@ function Category({ srch, setSrch, idxCtg, setIdxCtg }) {
       )}
       <select value={idxCtg} onChange={onSelect}>
         <option value={-1}>모두 보기</option>
-        <option value={0}>Team01</option>
-        <option value={1}>Team02</option>
-        <option value={2}>Team03</option>
+        {category.team.map((x, index) => {
+          return (
+            <option key={index} value={index}>
+              {x.name}
+            </option>
+          );
+        })}
       </select>
     </div>
   );

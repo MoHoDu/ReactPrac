@@ -1,5 +1,6 @@
 import styles from "./Contents.module.css";
 import { useRef, useEffect, useState } from "react";
+import InfoTab from "./InfoTab";
 
 function Content(props) {
   const title = props.info.title;
@@ -7,6 +8,8 @@ function Content(props) {
   const ssum = props.info.ssum;
   const category = props.category;
   const num = props.num;
+  const setShowInfo = props.setShowInfo;
+  const contentIndex = props.contentIndex;
 
   const moveContent = (event) => {
     if (window.innerWidth <= 767) return;
@@ -17,17 +20,43 @@ function Content(props) {
     });
   };
 
+  const onClickContent = () => {
+    const sltContent = document.getElementById(`${props.index}`);
+    if (sltContent.classList.contains(`${styles.content}`)) {
+      props.setSltInfo(contentIndex);
+      const box = document.getElementById(`${styles.contentBox}`);
+      const y = box.scrollTop + sltContent.getBoundingClientRect().top;
+      const x = sltContent.getBoundingClientRect().left;
+      const info = document.getElementById(`${styles.info}`);
+      info.style.left = `${x}px`;
+      // info.style.top = `${y}px`;
+      info.style.top = `calc(${y}px - 60px)`;
+      setShowInfo(true);
+      if (!info.classList.contains(styles.show)) {
+        info.classList.add(styles.show);
+      }
+      box.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+      box.style.overflowY = "hidden";
+    }
+  };
+
   return (
     <div
       onMouseOver={moveContent}
+      onClick={onClickContent}
       className={
         num === 0 ? `${styles.content} ${styles.selected}` : `${styles.content}`
       }
       id={`${props.index}`}
     >
       <p className={styles.cntTeam}>{category.team[idxTeam].name}</p>
-      <img src={ssum} />
-      <h2 className={styles.cntTitle}>{title}</h2>
+      <img className={styles.ssum} src={ssum} onClick={onClickContent} />
+      <h2 className={styles.cntTitle} onClick={onClickContent}>
+        {title}
+      </h2>
     </div>
   );
 }
@@ -38,8 +67,9 @@ function Platform(props) {
   const idx = Number(props.idxCtg);
   const rendered = props.rendered;
   const setRendered = props.setRendered;
-  const [isRendered, setIsRendered] = useState(false);
-  let index = 0;
+  const setShowInfo = props.setShowInfo;
+
+  let sltIndex = 0;
   let length = -1;
 
   const refBox = useRef();
@@ -49,44 +79,44 @@ function Platform(props) {
     if (length <= 0) {
       return;
     }
-    const lstSltIdx = `${props.idx}${index.toString()}`;
+    const lstSltIdx = `${props.idx}${sltIndex.toString()}`;
     const lastSelected = document.getElementById(lstSltIdx);
-    if (index === 0) {
-      index = length;
+    if (sltIndex === 0) {
+      sltIndex = length;
     } else {
-      index -= 1;
+      sltIndex -= 1;
     }
-    const sltIdx = `${props.idx}${index.toString()}`;
+    const sltIdx = `${props.idx}${sltIndex.toString()}`;
     const select = document.getElementById(sltIdx);
     select.scrollIntoView({
       behavior: "smooth",
       block: "center",
       inline: "center",
     });
-    lastSelected.classList.toggle(styles.selected);
-    select.classList.toggle(styles.selected);
+    lastSelected.classList.remove(styles.selected);
+    select.classList.add(styles.selected);
   };
 
   const moveRight = () => {
     if (length <= 0) {
       return;
     }
-    const lstSltIdx = `${props.idx}${index.toString()}`;
+    const lstSltIdx = `${props.idx}${sltIndex.toString()}`;
     const lastSelected = document.getElementById(lstSltIdx);
-    if (index === length) {
-      index = 0;
+    if (sltIndex === length) {
+      sltIndex = 0;
     } else {
-      index += 1;
+      sltIndex += 1;
     }
-    const sltIdx = `${props.idx}${index.toString()}`;
+    const sltIdx = `${props.idx}${sltIndex.toString()}`;
     const select = document.getElementById(sltIdx);
     select.scrollIntoView({
       behavior: "smooth",
       block: "center",
       inline: "center",
     });
-    lastSelected.classList.toggle(styles.selected);
-    select.classList.toggle(styles.selected);
+    lastSelected.classList.remove(styles.selected);
+    select.classList.add(styles.selected);
   };
 
   const setZero = () => {
@@ -101,7 +131,7 @@ function Platform(props) {
   return (
     <div className={styles.outBox} ref={refPlat}>
       <div className={styles.platform}>
-        <span className={styles.platTitle}>{props.title}</span>
+        <span className={styles.platTitle}>- {props.title} -</span>
         {rendered === true ? (
           <div className={`${styles.contentBox}`} ref={refBox}>
             {contents.map((content, index) => {
@@ -114,10 +144,13 @@ function Platform(props) {
                   return (
                     <Content
                       index={`${props.idx}${length}`}
+                      contentIndex={index}
                       num={length}
                       key={content.idx}
                       info={content}
                       category={props.category}
+                      setShowInfo={setShowInfo}
+                      setSltInfo={props.setSltInfo}
                     />
                   );
                 } else {
@@ -126,10 +159,13 @@ function Platform(props) {
                     return (
                       <Content
                         index={`${props.idx}${length}`}
+                        contentIndex={index}
                         num={length}
                         key={content.idx}
                         info={content}
                         category={props.category}
+                        setShowInfo={setShowInfo}
+                        setSltInfo={props.setSltInfo}
                       />
                     );
                   } else {
@@ -177,9 +213,19 @@ function Contents(props) {
   const idxCnt = props.indexOfContents;
   const rendered = props.rendered;
   const setRendered = props.setRendered;
+  const [showInfo, setShowInfo] = useState(false);
+  const [sltInfo, setSltInfo] = useState(0);
+
+  const closeTab = () => {
+    const box = document.getElementById(`${styles.info}`);
+    box.classList.toggle(styles.show);
+    const contentBox = document.getElementById(`${styles.contentBox}`);
+    contentBox.style.overflowY = "scroll";
+    setShowInfo(false);
+  };
 
   return (
-    <div className={styles.box}>
+    <div id={styles.contentBox} className={styles.box}>
       {category.platforms.map((platform, index) => (
         <Platform
           key={index}
@@ -192,8 +238,19 @@ function Contents(props) {
           idxCnt={idxCnt}
           rendered={rendered}
           setRendered={setRendered}
+          setShowInfo={setShowInfo}
+          setSltInfo={setSltInfo}
         />
       ))}
+      <div id={styles.info}>
+        <InfoTab
+          sltInfo={sltInfo}
+          contents={contents}
+          category={category}
+          showInfo={showInfo}
+        />
+        <div className={styles.close} onClick={closeTab} />
+      </div>
     </div>
   );
 }

@@ -12,12 +12,16 @@
 
 select {
   height: 25px;
+  width: 80px;
   margin: 5px 0 0 5px;
   border: 1px solid var(--wtColor);
   border-radius: 2px;
   background-color: var(--bkColor);
   color: var(--wtColor);
   opacity: 0.85;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 select:focus::selection {
